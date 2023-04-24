@@ -29,6 +29,11 @@ namespace seleniumLesson_2
         {
             using (IWebDriver webDriver = new ChromeDriver())
             {
+                //wait until the page load 30 sec
+                webDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(30);
+                //try to found the element afew times
+                webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
+
                 webDriver.Navigate().GoToUrl(url);
                 WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
                 //mail input 
@@ -60,7 +65,7 @@ namespace seleniumLesson_2
                         check = null;
                     }
                     if (check == null && password != "")
-                    { Puse();
+                    { /*Puse();*/
                         IWebElement passwordElement = wait.Until<IWebElement>((a) => { return a.FindElement(By.CssSelector("input[type='password']")); });
                        
                         passwordElement.SendKeys(password);
@@ -68,7 +73,7 @@ namespace seleniumLesson_2
                         // confirm button
                         IWebElement sendButton2 = wait.Until<IWebElement>((a) => { return a.FindElement(By.CssSelector("div[jsname='Njthtb']")); });
                         sendButton2.Click();
-                        Puse();
+                        //Puse();
                         IWebElement check2=null;
                         try
                         {//the user home page 
